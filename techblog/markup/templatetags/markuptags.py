@@ -23,7 +23,7 @@ from techblog.markup.markuprender import post_render
 
 register = template.Library()
 
-from postmarkup import _escape
+from postmarkup import escape
 #from postmarkup import render_bbcode
 
 @register.filter
@@ -64,7 +64,7 @@ def code(content, language):
     try:
         lexer = get_lexer_by_name(language, stripall=True)
     except ClassNotFound:
-        content = _escape(content)
+        content = escape(content)
         return '<div class="code"><pre>%s</pre></div>' % content
 
     formatter = HtmlFormatter(linenos=False, cssclass="code")
@@ -77,7 +77,7 @@ def code_linenumbers(content, language):
     try:
         lexer = get_lexer_by_name(language, stripall=True)
     except ClassNotFound:
-        content = _escape(content)
+        content = escape(content)
         return '<div class="code"><pre>%s</pre></div>' % content
 
     formatter = HtmlFormatter(linenos=True, cssclass="code")
