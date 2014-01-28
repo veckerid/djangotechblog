@@ -43,7 +43,7 @@ class PickledObjectField(models.Field):
                 return value
 
 
-    def get_db_prep_save(self, value):
+    def get_db_prep_save(self, value, connection):
         if value is not None and not isinstance(value, PickledObject):
             value = PickledObject(encodestring(pickle.dumps(value)))
         return value

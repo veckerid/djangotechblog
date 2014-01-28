@@ -54,11 +54,11 @@ ADMIN_MEDIA_PREFIX = '/adminmedia/'
 SECRET_KEY = '#qxry*06tp(w-s%1!#cutq9x-7c997imgz=b)2lkw@&!bef_k='
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
-)
+
+TEMPLATE_LOADERS = [
+'django.template.loaders.filesystem.Loader',
+'django.template.loaders.app_directories.Loader',
+]
 
 MIDDLEWARE_CLASSES = (
 
@@ -92,7 +92,7 @@ TEMPLATE_DIRS = (
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
+    "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
@@ -111,9 +111,11 @@ INSTALLED_APPS = (
 
     'django.contrib.admin',
     'django.contrib.sitemaps',
+    'django.contrib.staticfiles',
 
     'techblog.markup',
 
+    'techblog.apps.accounts',
     'techblog.apps.blog',
     'techblog.apps.comments',
     'techblog.apps.pages',
@@ -121,12 +123,24 @@ INSTALLED_APPS = (
     #'debug_toolbar'
 )
 
+ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+STATIC_URL = '/static/'
+
 INTERNAL_IPS = ('127.0.0.1',)
 
-CACHE_BACKEND = "memcached://127.0.0.1:11211/"
+#CACHE_BACKEND = "memcache://127.0.0.1:11211/"
 #CACHE_BACKEND = "dummy:///"
 
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY=True
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 #SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
@@ -156,6 +170,6 @@ GA_PATH = ""
 
 
 try:
-    from local_settings import *
+    from settings_local import *
 except ImportError:
     pass

@@ -75,7 +75,7 @@ def xhr_post_comment(request, **kwargs):
         if not broadcast.safe_first.allow_comment(object):
 
             response['status'] = "fail"
-            response['errors'].append('Commenting not permited on this object')
+            response['errors'].append('Commenting not permitted on this object')
 
         else:
 

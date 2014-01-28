@@ -19,7 +19,7 @@ sitemaps = { 'blogs' : BlogSitemap,
 urlpatterns = patterns('',
 
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^admin/(.*)', admin.site.root),
+    (r'^admin/', include(admin.site.urls)),
 
     #url(r'^$', 'apps.blog.views.blog_front', {"blog_slug":"test-blog"}),
 )

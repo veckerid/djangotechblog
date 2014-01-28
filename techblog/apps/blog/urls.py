@@ -1,7 +1,7 @@
 import views
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
-from feeds import BlogFeed, BlogTagFeed
+from techblog.apps.blog.feeds import BlogFeed, BlogTagFeed
 
 feeds = {
     'posts': BlogFeed,
