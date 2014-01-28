@@ -2,11 +2,13 @@ from django.core.cache import cache
 import urlparse
 from django.conf import settings
 
-from django.utils.cache import md5_constructor, iri_to_uri
+from django.utils.cache import iri_to_uri
+from hashlib import md5
+
 
 def generate_cache_key(key_prefix, path):
     """Returns a cache key for the header cache."""
-    path = md5_constructor(iri_to_uri(path))
+    path = md5(iri_to_uri(path))
     return 'views.decorators.cache.cache_header.%s.%s' % (key_prefix, path.hexdigest())
 
 def clear_cached_page(path):

@@ -1,5 +1,6 @@
 from django import forms
 
+
 class ImportForm(forms.Form):
 
     blog_slug = forms.CharField("Blog slug")

@@ -1,5 +1,6 @@
-import views
+from techblog.apps.accounts import views
 from django.conf.urls.defaults import *
+
 
 urlpatterns = patterns('',
 

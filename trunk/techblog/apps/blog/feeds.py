@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-from models import Blog, Channel, Post, Tag
-from django.contrib.syndication.feeds import Feed
+from techblog.apps.blog.models import Blog, Channel, Post, Tag
+
+from django.contrib.syndication.views import Feed
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
-from django.contrib.syndication.feeds import FeedDoesNotExist
+from django.contrib.syndication.views import FeedDoesNotExist
 from django.shortcuts import get_object_or_404
+
 
 MAX_ENTRIES = 20
 
