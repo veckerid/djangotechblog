@@ -11,8 +11,8 @@ from django.contrib.auth.models import User
 from techblog.markup.render import render
 from techblog.markup.fields import MarkupField
 from techblog import broadcast
+from techblog import markup
 
-import markup
 import operator
 import datetime
 import os
