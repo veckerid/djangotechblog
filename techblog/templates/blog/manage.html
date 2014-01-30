@@ -26,7 +26,7 @@ You can also use the <a href="/admin">admin</a> pages for more advanced control.
 
 <ul>
     {% for draft in drafts %}
-    <li><a href="{% url writer draft.blog.slug draft.version_id %}">{{ draft.title }}</a> ({{ draft.blog.title }})</li>
+    <li><a href="{% url "writer" draft.blog.slug draft.version_id %}">{{ draft.title }}</a> ({{ draft.blog.title }})</li>
     {% endfor %}
 </ul>
 
@@ -77,7 +77,7 @@ You can also use the <a href="/admin">admin</a> pages for more advanced control.
 </div>
 <div class="module">
     <ul class="links-list">
-        <li><a href="{% url logout %}">Logout</a></li>
+        <li><a href="{% url "logout" %}">Logout</a></li>
         <li><a href="/tools/import">Import</a></li>
     </ul>
 </div>
@@ -88,7 +88,7 @@ You can also use the <a href="/admin">admin</a> pages for more advanced control.
 </div>
 <div class="module">
     <ul class="links-list">
-        <li><a href="{% url newpage %}">Add page</a></li>
+        <li><a href="{% url "newpage" %}">Add page</a></li>
     </ul>
 </div>
 

@@ -70,7 +70,7 @@ input[type=submit]
 
 
 <div style="height: 90%; padding:10px;">
-<form style="height:100%" action="{% url pagewriter edit_page.id %}" method="post">
+<form style="height:100%" action="{% url "pagewriter" edit_page.id %}" method="post">
 
 
 
@@ -116,7 +116,7 @@ input[type=submit]
     <input type="submit" name="save" value="Save"></input>
     <input type="submit" name="revert" value="Revert" onclick="return confirm('Revert to previously published version?')"></input>
     <input type="submit" name="publish" value="Publish" onclick="return confirm('Publish this page?')"></input>
-    {# <a href="{% url blog_post blog.slug page.display_time.year page.display_time.month page.display_time.day post_slug %}" target="_blank">View on site</a> #}
+    {# <a href="{% url "blog_post" blog.slug page.display_time.year page.display_time.month page.display_time.day post_slug %}" target="_blank">View on site</a> #}
     <a href="/admin/resources/imageupload/add/" target="_blank">Upload an image</a>
     <a href="/admin/resources/imageupload/" target="_blank">View Images</a>
 </div>
