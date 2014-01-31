@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
