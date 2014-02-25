@@ -73,8 +73,11 @@ MIDDLEWARE_CLASSES = (
 
     'django.middleware.cache.FetchFromCacheMiddleware',
 
+    'django.contrib.messages.middleware.MessageMiddleware',
+
 
     'techblog.middleware.UrlRemapMiddleware',
+
 
     #'debug_toolbar.middleware.DebugToolbarMiddleware',
 
