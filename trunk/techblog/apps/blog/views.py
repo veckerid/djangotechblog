@@ -109,21 +109,21 @@ def get_blog_list_data(request, posts, get_page_url, page_no):
 @cache_page(60*10)
 def feeds(request, blog_slug, feed_item, **kwargs):
 
-    from django.contrib.syndication.views import feed
+    from django.contrib.syndication.views import Feed
 
     if '/' in feed_item:
         feed_type, slug = feed_item.split('/', 1)
     else:
         feed_type = feed_item
-        slug =""
+        slug=""
 
     if 'blog_root' in kwargs:
         del kwargs['blog_root']
 
     if feed_type == "posts":
-        return feed(request, url="posts/%s"% ( blog_slug ), **kwargs)
+        return Feed(request, url="posts/%s"% ( blog_slug ), **kwargs)
     elif feed_type == "tag":
-        return feed(request, url="tag/%s/%s"% ( blog_slug, feed_item ), **kwargs)
+        return Feed(request, url="tag/%s/%s"% ( blog_slug, feed_item ), **kwargs)
     raise Http404
 
 
