@@ -3,18 +3,18 @@ from django.conf.urls import patterns, url, include
 from django.core.urlresolvers import reverse
 from techblog.apps.blog.feeds import BlogFeed, BlogTagFeed
 
-feeds = {
-    'posts': BlogFeed,
-    'tag' : BlogTagFeed
-}
 
 
-urlpatterns = patterns('',
-
+urlpatterns = patterns(
+    '',
     url(r'^xhr/preview_comment/$', views.xhr_preview_comment, name="xhr_preview_comment"),
 
     url(r'^tools/import/$', views.import_wxr, name='import_wxr'),
-    url(r'^feeds/(?P<feed_item>.+)/$', views.feeds, {'feed_dict': feeds}, name="blog_feeds"),
+
+
+    url(r'^feeds/posts/$', BlogFeed(), {'feed_item': 'posts'}, name="blog_feeds"),
+    url(r'^feeds/tag/(?P<tag_slug>[\w-]*)/$', BlogTagFeed(), {'feed_item': 'tag'}, name="blog_tag_feeds"),
+
 
     url(r'^(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w-]*)/$', views.blog_post, name="blog_post"),
     url(r'^(?P<year>\d+)/(?P<month>\d+)/$', views.blog_month, name="blog_month"),
