@@ -10,23 +10,23 @@ from django.shortcuts import get_object_or_404
 
 MAX_ENTRIES = 20
 
+
 def get_channel_or_blog(slug):
     try:
         return Channel.objects.get(slug=slug)
     except Channel.DoesNotExist:
         return get_object_or_404(Blog, slug=slug)
 
+
 class BlogFeed(Feed):
 
     @classmethod
     def get_url(self, blog):
-        return reverse('blog_feeds', args=[blog.slug, 'posts'])
+        return reverse('blog_feeds', args=[blog.slug])
 
-    def get_object(self, bits):
-        if len(bits) != 1:
-            raise FeedDoesNotExist
-        #blog = Blog.objects.get(slug=bits[0])
-        blog = get_channel_or_blog(bits[0])
+    def get_object(self, request, **kwargs):
+        blog_slug = kwargs.get('blog_slug')
+        blog = get_channel_or_blog(blog_slug)
         return blog
 
     def items(self, blog):
@@ -43,6 +43,14 @@ class BlogFeed(Feed):
     def description(self, blog):
         return mark_safe(blog.description_text)
 
+    def item_title(self, post):
+        return post.title
+
+    def item_description(self, post):
+        return post.content_html
+
+    def item_link(self, post):
+        return post.get_absolute_url()
 
     def item_pubdate(self, post):
         return post.display_time
@@ -57,19 +65,17 @@ class ChannelFeed(BlogFeed):
         return channel
 
 
-
 class BlogTagFeed(Feed):
 
     @classmethod
     def get_url(self, tag):
-        return reverse('blog_feeds', args=[tag.blog.slug, "tag/"+tag.slug])
+        print("URL")
+        return reverse('blog_tag_feeds', args=[tag.blog.slug, tag.slug])
 
-    def get_object(self, bits):
-        if len(bits) != 3:
-            raise FeedDoesNotExist
+    def get_object(self, request, **kwargs):
 
-        blog_slug = bits[0]
-        tag_slug = bits[2]
+        blog_slug = kwargs.get('blog_slug')
+        tag_slug = kwargs.get('tag_slug')
 
         blog = get_channel_or_blog(blog_slug)
 
@@ -92,28 +98,42 @@ class BlogTagFeed(Feed):
     def description(self, tag):
         return mark_safe(tag.description_text)
 
+    def item_title(self, post):
+        return post.title
+
     def item_pubdate(self, post):
         return post.display_time
 
+    def item_description(self, post):
+        print(post)
+        return post.content_html
+
+    def item_link(self, post):
+        return post.get_absolute_url()
+
 
 class ChannelTagFeed(BlogTagFeed):
+    pass
 
-    #@classmethod
-    #def get_url(self, tag):
-    #    return reverse('blog_feeds', kwargs={'blog_slug':blog.slug, 'url':'blog'})
 
-    @classmethod
-    def get_url(self, tag):
-        return reverse('blog_feeds', args=[tag.blog.slug, "tag/"+tag.slug])
+# class ChannelTagFeed(BlogTagFeed):
 
-    def get_object(self, bits):
-        if len(bits) != 2:
-            raise FeedDoesNotExist
+#     #@classmethod
+#     #def get_url(self, tag):
+#     #    return reverse('blog_feeds', kwargs={'blog_slug':blog.slug, 'url':'blog'})
 
-        channel = Channel.objects.get(slug=bits[0])
+#     # @classmethod
+#     # def get_url(self, tag):
+#     #     return reverse('blog_feeds', args=[tag.blog.slug, "tag/"+tag.slug])
 
-        blog_slug = bits[0]
-        tag_slug = bits[1]
+#     def get_object(self, bits):
+#         if len(bits) != 2:
+#             raise FeedDoesNotExist
 
-        tag = channel.get_channel_tag(tag_slug)
-        return tag
+#         channel = Channel.objects.get(slug=bits[0])
+
+#         blog_slug = bits[0]
+#         tag_slug = bits[1]
+
+#         tag = channel.get_channel_tag(tag_slug)
+#         return tag

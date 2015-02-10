@@ -8,37 +8,38 @@ admin.autodiscover()
 from apps.blog.sitemap import PostSitemap, TagSitemap, BlogSitemap, ChannelSitemap, RootblogSitemap, RootblogPostSitemap
 from apps.pages.sitemap import PageSitemap
 
-sitemaps = { 'blogs' : BlogSitemap,
-             'channels' : ChannelSitemap,
-             'rootblog' : RootblogSitemap,
-             'posts' : PostSitemap,
-             'rootblogposts' : RootblogPostSitemap,
-             'pages' : PageSitemap,
-             'tags' : TagSitemap }
+sitemaps = {'blogs': BlogSitemap,
+            'channels': ChannelSitemap,
+            'rootblog': RootblogSitemap,
+            'posts': PostSitemap,
+            'rootblogposts': RootblogPostSitemap,
+            'pages': PageSitemap,
+            'tags': TagSitemap}
 
-urlpatterns = patterns('',
-
+urlpatterns = patterns(
+    '',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
 
-    #url(r'^$', 'apps.blog.views.blog_front', {"blog_slug":"test-blog"}),
+
 )
 
 
-urlpatterns += patterns('',
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}) )
+urlpatterns += patterns(
+    '',
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}))
 
 
 def bad(request):
     """ Simulates a server error """
-    1/0
+    1 / 0
 
-urlpatterns += patterns('',
-
+urlpatterns += patterns(
+    '',
     (r'^bad/$', bad),
-    (r'^', include('techblog.apps.blog.urls'), {"blog_slug":settings.DEFAULT_BLOG_SLUG, "blog_root":"/"}),
+    (r'^', include('techblog.apps.blog.urls'), {"blog_slug": settings.DEFAULT_BLOG_SLUG, "blog_root": "/"}),
 
-    (r'^blog/(?P<blog_slug>[\w-]*)/', include('techblog.apps.blog.urls') ),
+    (r'^blog/(?P<blog_slug>[\w-]*)/', include('techblog.apps.blog.urls')),
 
     (r'^comments/', include('techblog.apps.comments.urls')),
     (r'^accounts/', include('techblog.apps.accounts.urls')),
