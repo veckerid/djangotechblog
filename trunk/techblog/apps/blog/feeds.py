@@ -69,7 +69,6 @@ class BlogTagFeed(Feed):
 
     @classmethod
     def get_url(self, tag):
-        print("URL")
         return reverse('blog_tag_feeds', args=[tag.blog.slug, tag.slug])
 
     def get_object(self, request, **kwargs):
@@ -105,7 +104,6 @@ class BlogTagFeed(Feed):
         return post.display_time
 
     def item_description(self, post):
-        print(post)
         return post.content_html
 
     def item_link(self, post):
