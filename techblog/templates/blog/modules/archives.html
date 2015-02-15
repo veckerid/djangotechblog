@@ -51,7 +51,7 @@ $(function(){
             var $archive_year = $('#archive-year-'+year);
             max_years--;
 
-        }while(max_years>0 && !$archive_year);
+        }while(max_years>0 && !$archive_year.length);
 
         $current_archive_year.slideUp(function(){
         $archive_year.slideDown();});
@@ -73,7 +73,7 @@ $(function(){
             var $archive_year = $('#archive-year-'+year);
             max_years++;
 
-        }while(max_years>0 && !$archive_year);
+        }while(max_years>0 && !$archive_year.length);
 
         $current_archive_year.slideUp(function(){
         $archive_year.slideDown();});
