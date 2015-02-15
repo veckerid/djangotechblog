@@ -86,7 +86,7 @@ class InlineCodeTag(postmarkup.TagBase):
         postmarkup.TagBase.__init__(self, name, inline=True, enclosed=True)
 
     def render_open(self, parser, node_index):
-        contents = postmarkup._escape_no_breaks(self.get_contents(parser))
+        contents = postmarkup.parser._escape_no_breaks(self.get_contents(parser))
         self.skip_contents(parser)
         return u"<code>%s</code>"%contents
 
