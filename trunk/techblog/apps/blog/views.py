@@ -128,7 +128,6 @@ def feeds(request, blog_slug, feed_item, **kwargs):
 
 
 
-@cache_page(60*60*12)
 def blog_month(request, blog_slug, year, month, page_no=1, blog_root=None):
 
     page_no = int(page_no)
@@ -244,7 +243,6 @@ def blog_front(request, blog_slug="", page_no=1, blog_root=None):
     #return posts
 
 
-@cache_page(60*60)
 def blog_post(request, blog_slug, year, month, day, slug, blog_root=None):
 
     blog = get_channel_or_blog(slug=blog_slug)
